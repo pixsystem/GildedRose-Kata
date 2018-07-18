@@ -13,7 +13,7 @@ class ItemQualityConjured : ItemQuality {
     
     override init(item: Item) {
         super.init(item: item)
-        qualityModifier = -2
+        qualityModifier = -1
     }
     
 }

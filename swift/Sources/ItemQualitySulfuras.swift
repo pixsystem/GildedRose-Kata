@@ -15,6 +15,7 @@ class ItemQualitySulfuras : ItemQuality {
         super.init(item: item)
         sellInModifier = 0
         qualityModifier = 0
+        allowModifierChanges = false
     }
     
 }

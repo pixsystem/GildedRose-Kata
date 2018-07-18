@@ -14,6 +14,8 @@ class ItemQualityAgedBrie : ItemQuality {
     override init(item: Item) {
         super.init(item: item)
         qualityModifier = 1
+        qualityModifierWhenExpired = 2
+        //defaultQualityDecreaseWhenExpired = false
     }
     
 }

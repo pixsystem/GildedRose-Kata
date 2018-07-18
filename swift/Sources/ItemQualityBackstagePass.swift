@@ -26,7 +26,7 @@ class ItemQualityBackstagePass : ItemQuality {
         if item.sellIn <= 10 {
             qualityModifier = 2
         }
-        if item.sellIn <= 3 {
+        if item.sellIn <= 5 {
             qualityModifier = 3
         }
         if item.sellIn <= 0 {

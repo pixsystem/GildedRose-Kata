@@ -30,16 +30,16 @@ class GildedRoseTests: XCTestCase {
         item.sellIn = 0
         quality.update()
         XCTAssert( item.quality == 0 )
-        XCTAssert( item.sellIn == 0 )
+        XCTAssert( item.sellIn == -1 )
         
         //test decrease in quality by 2 when sellIn has passed
-        item.sellIn = 0
+        item.sellIn = -3
         item.quality = 20
         quality.update()
-        XCTAssert( item.sellIn == 0 )
+        XCTAssert( item.sellIn == -4 )
         XCTAssert( item.quality == 18 )
         quality.update()
-        XCTAssert( item.sellIn == 0 )
+        XCTAssert( item.sellIn == -5 )
         XCTAssert( item.quality == 16 )
     }
 
@@ -86,7 +86,7 @@ class GildedRoseTests: XCTestCase {
         item.sellIn = 0
         item.quality = 8
         quality.update()
-        XCTAssert( item.sellIn == 0 )
+        XCTAssert( item.sellIn == -1 )
         XCTAssert( item.quality == 0 )
     }
     
@@ -107,14 +107,13 @@ class GildedRoseTests: XCTestCase {
     }
     
     func testConjuredRules() {
-        //Conjured decreases in quality 2x
         let item = Item(name: "Foo", sellIn: 14, quality: 4)
         let quality = ItemQualityConjured.init(item: item)
         quality.update()
-        XCTAssert( item.quality == 2 )
+        XCTAssert( item.quality == 3 )
         XCTAssert( item.sellIn == 13 )
         quality.update()
-        XCTAssert( item.quality == 0 )
+        XCTAssert( item.quality == 2 )
         XCTAssert( item.sellIn == 12 )
     }
     
