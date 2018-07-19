@@ -11,11 +11,12 @@ import Foundation
 
 class ItemQualitySulfuras : ItemQuality {
     
-    override init(item: Item) {
-        super.init(item: item)
-        sellInModifier = 0
-        qualityModifier = 0
-        allowModifierChanges = false
+    override func updateQuality() {
+        
+    }
+    
+    override func updateSellIn() {
+        
     }
     
 }

@@ -75,7 +75,7 @@ class GildedRoseTests: XCTestCase {
         XCTAssert( item.sellIn == 8 )
         XCTAssert( item.quality == 6 )
         
-        //Check 3+ increase in quality when <= 3 days
+        //Check 3+ increase in quality when <= 5 days
         item.sellIn = 2
         item.quality = 8
         quality.update()

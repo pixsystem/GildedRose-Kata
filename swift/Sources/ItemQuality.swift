@@ -48,66 +48,62 @@ extension Item {
 class ItemQuality {
     
     var item:Item?
-    let minQuality:Int = 0
-    var maxQuality:Int = 50
-    let minSellIn = 0
-    var sellInModifier:Int = -1
-    var sellInModifierWhenExpired = 0
-    var qualityModifier:Int = -1
-    var qualityModifierWhenExpired:Int = -2
-    var allowModifierChanges = true
-    var defaultQualityDecreaseWhenExpired = true
     
     init(item:Item) {
         self.item = item
-        if item.quality > maxQuality {
-            maxQuality = item.quality
-        }
     }
     
-    func update() {
+    func isExpired() -> Bool {
+        guard let item = item else {
+            return true
+        }
+        return item.sellIn <= 0
+    }
+    
+    func limitQuality(max:Int) {
         guard let item = item else {
             return
         }
-        
-        //Once the sell by date has passed, Quality degrades twice as fast
-        if item.sellIn < 0 {
-            if allowModifierChanges {
-                qualityModifier = qualityModifierWhenExpired
+        if item.quality > max {
+            item.quality = max
+        }
+    }
+    
+    func limitQuality(min:Int) {
+        guard let item = item else {
+            return
+        }
+        if item.quality < min {
+            item.quality = min
+        }
+    }
+    
+    func updateSellIn() {
+        guard let item = item else {
+            return
+        }
+        item.sellIn = item.sellIn - 1
+    }
+    
+    func updateQuality() {
+        guard let item = item else {
+            return
+        }
+        defer {
+            if item.quality < 0 {
+                item.quality = 0
             }
         }
-        
-        //All items have a SellIn value which denotes the number of days we have to sell the item
-        item.sellIn = item.sellIn + sellInModifier
-        
-        //Check min sell in
-        if item.sellIn < 0 {
-            
-            //Default items decrease quality by qualityModifierWhenExpired when expired.
-            if defaultQualityDecreaseWhenExpired && allowModifierChanges {
-                qualityModifier = qualityModifierWhenExpired
-            }
+        if isExpired() {
+            item.quality = item.quality - 2
+            return
         }
-        
-        //All items have a Quality value which denotes how valuable the item is
-        if qualityModifier < Int.max {
-            item.quality = item.quality + qualityModifier
-        }
-        
-        //The Quality of an item is less than minQuality
-        if item.quality <= minQuality {
-            item.quality = minQuality
-        }
-        
-        //The Quality of an item is never more than maxQuality
-        if item.quality >= maxQuality {
-            item.quality = maxQuality
-        }
-        
-        //Set the quality to 0.
-        if qualityModifier == Int.max {
-            item.quality = 0
-        }
+        item.quality = item.quality - 1
+    }
+    
+    func update() {
+        updateQuality()
+        updateSellIn()
     }
     
 }

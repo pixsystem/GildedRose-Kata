@@ -11,9 +11,21 @@ import Foundation
 
 class ItemQualityConjured : ItemQuality {
     
-    override init(item: Item) {
-        super.init(item: item)
-        qualityModifier = -1
+    override func updateQuality() {
+        guard let item = item else {
+            return
+        }
+        
+        defer {
+            limitQuality(min: 0)
+        }
+        
+        if isExpired() {
+            item.quality = item.quality - 2
+            return
+        }
+        
+        item.quality = item.quality - 1
     }
     
 }

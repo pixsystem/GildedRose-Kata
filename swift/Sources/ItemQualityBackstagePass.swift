@@ -13,26 +13,33 @@ import Foundation
 
 class ItemQualityBackstagePass : ItemQuality {
     
-    override init(item: Item) {
-        super.init(item: item)
-        qualityModifier = 1
-        defaultQualityDecreaseWhenExpired = false
-    }
-    
-    override func update() {
+    override func updateQuality() {
         guard let item = item else {
             return
         }
-        if item.sellIn <= 10 {
-            qualityModifier = 2
+        
+        defer {
+            limitQuality(min: 0)
+            limitQuality(max: 50)
         }
+        
+        if isExpired() {
+            item.quality = 0
+            return
+        }
+        
         if item.sellIn <= 5 {
-            qualityModifier = 3
+            item.quality = item.quality + 3
+            return
         }
-        if item.sellIn <= 0 {
-            qualityModifier = Int.max
+        
+        if item.sellIn <= 10 {
+            item.quality = item.quality + 2
+            return
         }
-        super.update()
+        
+        item.quality = item.quality + 1
+        
     }
     
 }

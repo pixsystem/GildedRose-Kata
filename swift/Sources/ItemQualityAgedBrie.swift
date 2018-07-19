@@ -13,9 +13,20 @@ class ItemQualityAgedBrie : ItemQuality {
     
     override init(item: Item) {
         super.init(item: item)
-        qualityModifier = 1
-        qualityModifierWhenExpired = 2
-        //defaultQualityDecreaseWhenExpired = false
+    }
+    
+    override func updateQuality() {
+        guard let item = item else {
+            return
+        }
+        defer {
+            limitQuality(max: 50)
+        }
+        if isExpired() {
+            item.quality = item.quality + 2
+            return
+        }
+        item.quality = item.quality + 1
     }
     
 }
