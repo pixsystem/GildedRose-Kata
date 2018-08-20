@@ -20,41 +20,13 @@ class Shop {
         continue;
       }
 
-      if (item.name !== 'Backstage passes to a TAFKAL80ETC concert') {
-        if (item.quality > 0) {
-          item.quality = item.quality - 1;
-        }
-      } else {
-        if (item.quality < 50) {
-          item.quality = item.quality + 1;
-          if (item.name === 'Backstage passes to a TAFKAL80ETC concert') {
-            if (item.sellIn < 11) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1;
-              }
-            }
-            if (item.sellIn < 6) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1;
-              }
-            }
-          }
-        }
+      if (item.quality > 0) {
+        item.quality = item.quality - 1;
       }
       item.sellIn = item.sellIn - 1;
       if (item.sellIn < 0) {
-        if (item.name !== 'Aged Brie') {
-          if (item.name !== 'Backstage passes to a TAFKAL80ETC concert') {
-            if (item.quality > 0) {
-              item.quality = item.quality - 1;
-            }
-          } else {
-            item.quality = item.quality - item.quality;
-          }
-        } else {
-          if (item.quality < 50) {
-            item.quality = item.quality + 1;
-          }
+        if (item.quality > 0) {
+          item.quality = item.quality - 1;
         }
       }
     }
@@ -65,6 +37,7 @@ class Shop {
   dispatchUpdate(item) {
     const staticItems = ["Sulfuras, Hand of Ragnaros"];
     const increaseItems = ["Aged Brie"];
+    const passes = ["Backstage passes to a TAFKAL80ETC concert"];
 
     if (staticItems.find(function(staticItem) { return item.name === staticItem; })) {
       return true;
@@ -74,7 +47,33 @@ class Shop {
       return this.updateIncreaseItem(item);
     }
 
+    if (passes.find(function(pass) { return item.name === pass; })) {
+      return this.updatePass(item);
+    }
+
     return false;
+  }
+
+  updatePass(item) {
+    let valueAdd = 0;
+
+    if (item.sellIn <= 0) {
+      valueAdd = 0 - item.quality;
+    } else if (item.sellIn <= 5) {
+      valueAdd = 3;
+    } else if (item.sellIn <= 10) {
+      valueAdd = 2;
+    } else {
+      valueAdd = 1;
+    }
+
+    item.quality += valueAdd;
+
+    if (item.quality > 50) {
+      item.quality = 50;
+    }
+
+    return true;
   }
 
   updateIncreaseItem(item) {
