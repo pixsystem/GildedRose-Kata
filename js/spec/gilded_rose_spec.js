@@ -96,22 +96,22 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(0);
     });
   });
-
-  // describe("Conjured items", function() {
-  //   it("should decrease in value by 2", function() {
-  //     const gildedRose = new Shop([new Item("Conjured socks", 20, 40)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).toEqual(38);
-  //   });
-  //   it("should decrease in value by 4", function() {
-  //     const gildedRose = new Shop([new Item("Conjured socks", 0, 40)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).toEqual(36);
-  //   });
-  //   it("should decrease have a value of zero", function() {
-  //     const gildedRose = new Shop([new Item("Conjured socks", 0, 1)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).toEqual(0);
-  //   });
-  // });
+  
+  describe("Conjured items", function() {
+    it("should decrease in value by 2", function() {
+      const gildedRose = new Shop([new Item("Conjured socks", 20, 40)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toEqual(38);
+    });
+    it("should decrease in value by 4", function() {
+      const gildedRose = new Shop([new Item("Conjured socks", 0, 40)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toEqual(36);
+    });
+    it("should decrease have a value of zero", function() {
+      const gildedRose = new Shop([new Item("Conjured socks", 0, 1)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toEqual(0);
+    });
+  });
 });

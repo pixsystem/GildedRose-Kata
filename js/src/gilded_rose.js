@@ -28,6 +28,7 @@ class Shop {
     const staticItems = ["Sulfuras, Hand of Ragnaros"];
     const increaseItems = ["Aged Brie"];
     const passes = ["Backstage passes to a TAFKAL80ETC concert"];
+    const conjured = "conjured";
 
     item.sellIn--;
 
@@ -43,7 +44,11 @@ class Shop {
       return this.updatePass(item);
     }
 
-    return this.updateRegularItem(item);
+    if (item.name.toLowerCase().indexOf(conjured) !== -1) {
+      return this.updateRegularItem(item, 2);
+    }
+
+    return this.updateRegularItem(item, 1);
   }
 
   updatePass(item) {
@@ -75,11 +80,11 @@ class Shop {
     return true;
   }
 
-  updateRegularItem(item) {
+  updateRegularItem(item, multiplier) {
     if (item.sellIn < 0) {
-      item.quality -= 2;
+      item.quality -= 2 * multiplier;
     } else {
-      item.quality -= 1;
+      item.quality -= 1 * multiplier;
     }
 
     if (item.quality < 0) {
