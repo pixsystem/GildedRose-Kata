@@ -14,11 +14,6 @@ class Shop {
     for (var i = 0; i < this.items.length; i++) {
       const item = this.items[i];
       const done = this.dispatchUpdate(item);
-
-      console.log('item name', item.name)
-      if (done) {
-        continue;
-      }
     }
 
     return this.items;
@@ -33,7 +28,7 @@ class Shop {
     item.sellIn--;
 
     if (staticItems.find(function(staticItem) { return item.name === staticItem; })) {
-      return true;
+      return;
     }
 
     if (increaseItems.find(function(increaseItem) { return item.name === increaseItem; })) {
@@ -69,15 +64,12 @@ class Shop {
     if (item.quality > 50) {
       item.quality = 50;
     }
-
-    return true;
   }
 
   updateIncreaseItem(item) {
     if (item.quality < 50) {
       item.quality++;
     }
-    return true;
   }
 
   updateRegularItem(item, multiplier) {
@@ -90,7 +82,5 @@ class Shop {
     if (item.quality < 0) {
       item.quality = 0;
     }
-
-    return true;
   }
 }
