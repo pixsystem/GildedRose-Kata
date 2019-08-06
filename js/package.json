@@ -1,0 +1,17 @@
+{
+  "name": "gilded-rose-js",
+  "version": "1.0.0",
+  "description": "Code Sampe for Pixsystems",
+  "main": "",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<title>Gilded Rose Texttest Fixture</title>
+
+<script type="text/javascript" src="lib/setup_helpers.js"></script>
+
+<script type="module">
+    import ShopItem from './src/Item.js';
+    import AgedBrie from './src/AgedBrie.js';
+    import BackstagePass from './src/BackstagePass.js';
+    import LegendaryItem from './src/LegendaryItem.js';
+    import ConjuredItem from './src/ConjuredItem.js';
+    import Shop from './src/Shop.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const body = document.body,
+            items = [],
+            days = 10;
+        let gildedRose;
+      
+        document.body.appendChild(createP('OMGHAI!'));
+
+        items.push(new ShopItem({name:'+5 Dexterity Vest', sellIn: 10, quality: 20}));
+        items.push(new AgedBrie({name: 'Aged Brie', sellIn: 2, quality: 0}));
+        items.push(new ShopItem({name: 'Elixir of the Mongoose', sellIn: 5, quality: 7}));
+        items.push(new LegendaryItem({name: 'Sulfuras, Hand of Ragnaros', sellIn: 0, quality: 80}));
+        items.push(new LegendaryItem({name: 'Sulfuras, Hand of Ragnaros', sellIn: -1, quality: 80}));
+        items.push(new BackstagePass({name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 15, quality: 20}));
+        items.push(new BackstagePass({name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 10, quality: 49}));
+        items.push(new BackstagePass({name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 5, quality: 49}));
+        // this conjured item does not work properly yet
+        items.push(new ConjuredItem({name: 'Conjured Mana Cake', sellIn: 3, quality: 6}));
+
+
+        gildedRose = new Shop(items);
+
+        for (let i = 0; i < days; i++) {
+            showHeaderFor(i, body);
+            showItemsFor(gildedRose.items, body);
+            gildedRose.updateQuality();
+        }
+  });
+</script>
+
+</head>
+
+<body>
+</body>
+</html>
